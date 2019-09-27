@@ -1,10 +1,10 @@
 import java.util.*;
 
 public class DijkstraSearch {
-	private Map<String, Map<String, Integer>> graph;
-	private Map<String, Integer> costs;
-	private Map<String, String> parents;
-	private List<String> processed;
+	private Map<String, Map<String, Integer>> graph; // <Node, Children<Node, length between parent and child>>
+	private Map<String, Integer> costs; // <Node, Shortest length to Node>
+	private Map<String, String> parents; //<Node, NodeParent>
+	private List<String> processed; //used nodes
 	private boolean wasStartNode;
 	private int shortestPathLength;
 	private List<String> shortestPath;
@@ -114,7 +114,7 @@ public class DijkstraSearch {
 	first arg - child name;
 	second arg - child cost;
 	*/
-	public static Map<String, Integer> createChildren(String ... args){
+	public static Map<String, Integer> createChildrenMap(String ... args){
 		Map<String, Integer> children = new HashMap<String, Integer>();
 		for (int i = 0; i < args.length; i += 2){
 			String name = args[i];
@@ -126,11 +126,14 @@ public class DijkstraSearch {
 		return children;
 	}
 
+	/*
+	how to use
+	 */
 	public static void main(String[] args) {
 		DijkstraSearch dijkstraSearch = new DijkstraSearch();
-		dijkstraSearch.addNode("start", DijkstraSearch.createChildren("a", "6", "b", "2"), true);
-		dijkstraSearch.addNode("a", DijkstraSearch.createChildren("end", "1"));
-		dijkstraSearch.addNode("b", DijkstraSearch.createChildren("a", "3", "end", "5"));
+		dijkstraSearch.addNode("start", DijkstraSearch.createChildrenMap("a", "6", "b", "2"), true);
+		dijkstraSearch.addNode("a", DijkstraSearch.createChildrenMap("end", "1"));
+		dijkstraSearch.addNode("b", DijkstraSearch.createChildrenMap("a", "3", "end", "5"));
 		dijkstraSearch.addNode("end", null);
 		dijkstraSearch.calculate("end");
 		System.out.println(dijkstraSearch.getShortestPath());
