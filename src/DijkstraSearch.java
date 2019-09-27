@@ -131,7 +131,8 @@ public class DijkstraSearch {
 	 */
 	public static void main(String[] args) {
 		DijkstraSearch dijkstraSearch = new DijkstraSearch();
-		dijkstraSearch.addNode("start", DijkstraSearch.createChildrenMap("a", "6", "b", "2"), true);
+		dijkstraSearch.addNode("start", DijkstraSearch.createChildrenMap("a", "6", "b", "2"),
+				true);
 		dijkstraSearch.addNode("a", DijkstraSearch.createChildrenMap("end", "1"));
 		dijkstraSearch.addNode("b", DijkstraSearch.createChildrenMap("a", "3", "end", "5"));
 		dijkstraSearch.addNode("end", null);
