@@ -45,11 +45,11 @@ public class DijkstraSearch {
 			throw new IllegalArgumentException("No start node has been added.");
 		String node = findLowestCostNode(costs, processed);
 		while (node != null){
-			int cost = (int)costs.get(node);
+			int cost = costs.get(node);
 			Map<String, Integer> neighbors = graph.get(node);
 			if (neighbors != null) {
 				for (Map.Entry<String, Integer> entry : neighbors.entrySet()) {
-					if (entry.getValue() + cost < (int) costs.get(entry.getKey()) || costs.get(entry.getKey()) == -1) {
+					if (entry.getValue() + cost < costs.get(entry.getKey()) || costs.get(entry.getKey()) == -1) {
 						costs.put(entry.getKey(), entry.getValue() + cost);
 						parents.put(entry.getKey(), node);
 					}
@@ -65,7 +65,7 @@ public class DijkstraSearch {
 		int min = -1;
 		String node = null;
 		for (Map.Entry<String, Integer> entry : costs.entrySet()){
-			if (((double)entry.getValue() < (double)min || min == -1) && !processed.contains(entry.getKey())){
+			if ((entry.getValue() < min || min == -1) && entry.getValue() != -1 && !processed.contains(entry.getKey())){
 				min = entry.getValue();
 				node = entry.getKey();
 			}
